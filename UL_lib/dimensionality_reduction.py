@@ -99,7 +99,7 @@ class MyIsomap:
         # normalize distances
         E = E / max_dist
 
-        # drop datapoints without connections        
+        # drop datapoints without connections
         inf_rcs = np.sum(np.isinf(E), axis=1)
         valid_rcs = np.where(inf_rcs < E.shape[1] - 1)[0]
         E = E[valid_rcs, :][:, valid_rcs]
@@ -112,9 +112,9 @@ class MyIsomap:
                 for j in range(new_N):
                     if E[i, j] > E[i, k] + E[k, j]:
                         E[i, j] = E[i, k] + E[k, j]
-        
+
         #new_N = N  # number of points after dropping ones with infinite distances
-        
+
         # check for infinite distances and drop corresponding datapoints
         #if np.any(np.isinf(E)):
         #    i = 0
@@ -128,15 +128,15 @@ class MyIsomap:
         #                i += 1
         #        except:
         #            break
-        #    
+        #
         #    print("""ATTENTION: the given value of k was not large enough to
         #            compute distance between all pairs of datapoints\nplease
         #            use a larger value ->""")
         #    print(f"\t-> {N-new_N} datapoints were dropped")
-        
+
         print(f"number of nans in E: {np.sum(np.isnan(E))}")
         print(f"number of infs in E: {np.sum(np.isinf(E))}")
-        
+
         # compute Gram matrix (double-center distance matrix)
         E = E**2
         E_sum = E.sum()

@@ -1,2 +1,8 @@
 # pycache
 **/__pycache__/
+
+# papers
+**/*.pdf
+
+# personal notes
+notes.md
