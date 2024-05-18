@@ -2,6 +2,7 @@ import argparse
 import numpy as np
 
 from lib.embed import embed_linear, embed_C, embed_SR
+from lib.high_contrast import generate_images
 
 
 if __name__ == "__main__":
@@ -11,17 +12,20 @@ if __name__ == "__main__":
     parser.add_argument('-N', type=int, default=1000, help='Size of generated dataset')
     parser.add_argument('-d', type=int, default=10, help='Intrinsic dimension')
     parser.add_argument('-D', type=int, default=15, help='Embedding dimension (must be larger than d)')
+    parser.add_argument('-n', type=int, default=3, help='Number of blobs in images of high-contrast dataset')
 
     args = parser.parse_args()
 
     N = args.N  # size of datasets
     d = args.d  # intrinsic dimension of data
     D = args.D  # dimension of the embedding space
+    num_blobs = args.n  # number of blobs in high-contrast images
 
     if D < d:
         raise ValueError("Embedding dimension must be larger than intrinsic dimension")
 
-    # sample data (to be embedded in higher-dimensional space)
+    # sample data for simpler datasets (to be embedded in
+    # higher-dimensional space)
     #
     # (names of datasets are the same as in "description
     # of the dataset" in original paper)
@@ -39,3 +43,13 @@ if __name__ == "__main__":
     dset_SR = embed_SR(dset_SR)
 
     # build high-contrast images dataset
+    image_size = 81  # length of images' side (fixed to same value as in the paper)
+    dset_B = generate_images(N, image_size, num_blobs)
+
+    # save datasets to binary file
+    np.save('../datasets/D.npy', dset_D)
+    np.save('../datasets/G.npy', dset_G)
+    np.save('../datasets/H.npy', dset_H)
+    np.save('../datasets/C.npy', dset_C)
+    np.save('../datasets/SR.npy', dset_SR)
+    np.save('../datasets/B.npy', dset_B)
