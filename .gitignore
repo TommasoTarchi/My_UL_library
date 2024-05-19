@@ -4,5 +4,9 @@
 # papers
 **/*.pdf
 
+# datasets
+FCI_estimator/datasets/*
+!FCI_estimator/datasets/sample_dataset.npy
+
 # personal notes
 notes.md

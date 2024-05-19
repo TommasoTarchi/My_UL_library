@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 
-from lib.embed import embed_linear, embed_C, embed_SR
+from lib.embeddings import embed_linear, embed_C, embed_SR
 from lib.high_contrast import generate_images
 
 
