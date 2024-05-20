@@ -28,10 +28,13 @@ def compute_density(data: np.ndarray, r: np.ndarray):
 
     # compute number of neighbours within cutoff distances
     accumulate_distance = np.zeros_like(r, dtype=np.float64)
-    for i in range(dset_size):
-        accumulate_distance[i] += np.sum(distances >= r[i])
+    for i in range(r.shape[0]):
+        accumulate_distance[i] += np.sum(distances <= r[i])
 
-    return accumulate_distance / norm
+    print(accumulate_distance)
+    print(norm)
+
+    return accumulate_distance * norm
 
 
 def estimate_CI(r: float, r_s: float, d: int):

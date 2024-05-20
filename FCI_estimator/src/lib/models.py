@@ -18,12 +18,13 @@ class FCI_estimator:
         self.d = None  # intrinsic dimension
         self.params_std = None  # standard deviation of parameter estimations
 
-    def fit(self, data: np.ndarray):
+    def fit(self, data: np.ndarray, r: np.ndarray):
+        """
+        r: values of radius to be used for fitting
+        """
         data = preprocess(data)
 
-        # define array with r values and compute corresponding
-        # density values
-        r = np.linspace(0.1, 1, 9)  # METTERE VALORI SENSATI
+        # computing true density values
         ngbrs_density = compute_density(data, r)
 
         # fit model
