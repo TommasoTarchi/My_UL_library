@@ -1,0 +1,5 @@
+scipy
+scikit-learn
+torch
+torchvision
+torchaudio

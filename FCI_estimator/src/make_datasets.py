@@ -10,8 +10,8 @@ if __name__ == "__main__":
     # get command line arguments
     parser = argparse.ArgumentParser(description="This program creates a simple dataset to test intrinsic dimension estimation")
     parser.add_argument('-N', type=int, default=1000, help='Size of generated dataset')
-    parser.add_argument('-d', type=int, default=10, help='Intrinsic dimension')
-    parser.add_argument('-D', type=int, default=15, help='Embedding dimension (must be larger than d)')
+    parser.add_argument('-d', type=int, default=15, help='Intrinsic dimension')
+    parser.add_argument('-D', type=int, default=60, help='Embedding dimension (must be larger than d)')
     parser.add_argument('-n', type=int, default=3, help='Number of blobs in images of high-contrast dataset')
 
     args = parser.parse_args()

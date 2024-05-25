@@ -82,6 +82,9 @@ def embed_linear(data: np.ndarray, embedding_dim: int):
     # rotate data
     data_embedded = rotate_random(data_embedded)
 
+    # remove residual values from rotation
+    data_embedded[data_embedded < 1e-8] = 0.0
+
     return data_embedded
 
 
@@ -100,6 +103,9 @@ def embed_C(data: np.ndarray):
         data_embedded[:, feature*2+1] = data[:, feature+1] * np.sin(data[:, feature])
     data_embedded[:, embedding_dim-2] = data[:, 0] * np.cos(data[:, dim-1])
     data_embedded[:, embedding_dim-1] = data[:, 0] * np.sin(data[:, dim-1])
+
+    # remove residual values from rotation
+    data_embedded[data_embedded < 1e-8] = 0.0
 
     return data_embedded
 
