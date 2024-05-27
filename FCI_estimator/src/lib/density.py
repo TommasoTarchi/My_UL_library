@@ -2,6 +2,7 @@ import numpy as np
 from scipy.constants import pi
 from scipy.special import gamma, hyp2f1
 from scipy.spatial.distance import pdist, squareform
+import mpmath
 
 
 def compute_empirical_FCI(data: np.ndarray, r: np.ndarray):
@@ -43,15 +44,22 @@ def estimate_FCI(r: np.ndarray, r_s: float, d: float):
     angle_ratio = 0.5 * solid_1 / solid
 
     # rescale r
-    r_rescaled = r / r_s
+    r_rescaled = r# / r_s
 
     # precompute and normalize last arg (cannot be larger than 1)
     last_arg = (r_rescaled**2 - 2) ** 2
     last_arg /= np.max(last_arg)
 
     # compute (2,1)-hypergeometric function
+    #
+    # (commented lines use mpmath hypergeometric method,
+    # which is more stable (but not vectorizable); also
+    # does not require normalization of last argument)
     with np.errstate(divide='ignore', invalid='ignore'):
         hypergeom = hyp2f1(0.5, 1. - 0.5 * d, 1.5, last_arg)
+        #hypergeom = np.empty_like(last_arg, dtype=np.float64)
+        #for i in range(hypergeom.shape[0]):
+        #    hypergeom[i] = float(abs(mpmath.hyp2f1(0.5, 1. - 0.5*d, 1.5, last_arg[i])))
         edge_cases_count = np.sum(np.isnan(hypergeom) | np.isinf(hypergeom))
         hypergeom[np.isinf(hypergeom)] = 0  # handle edge cases
 

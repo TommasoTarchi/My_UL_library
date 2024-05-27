@@ -13,6 +13,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', type=int, default=15, help='Intrinsic dimension')
     parser.add_argument('-D', type=int, default=60, help='Embedding dimension (must be larger than d)')
     parser.add_argument('-n', type=int, default=3, help='Number of blobs in images of high-contrast dataset')
+    parser.add_argument('--orthog_method', type=str, default="GS", help='Orthogonalization method for building random rotation hyperplane (default Gram-Schmidt)')
 
     args = parser.parse_args()
 
@@ -20,6 +21,7 @@ if __name__ == "__main__":
     d = args.d  # intrinsic dimension of data
     D = args.D  # dimension of the embedding space
     num_blobs = args.n  # number of blobs in high-contrast images
+    orthog_method = args.orthog_method  # orthogonalization method for rotation
 
     if D < d:
         raise ValueError("Embedding dimension must be larger than intrinsic dimension")
@@ -36,9 +38,9 @@ if __name__ == "__main__":
     dset_SR = np.random.rand(N, 2)  # uniform (values in [0, 1)^d) (notice: fixed intrinsic dimension)
 
     # embed data
-    dset_D = embed_linear(dset_D, embedding_dim=D)
-    dset_G = embed_linear(dset_G, embedding_dim=D)
-    dset_H = embed_linear(dset_H, embedding_dim=D)
+    dset_D = embed_linear(dset_D, embedding_dim=D, orthog_method=orthog_method)
+    dset_G = embed_linear(dset_G, embedding_dim=D, orthog_method=orthog_method)
+    dset_H = embed_linear(dset_H, embedding_dim=D, orthog_method=orthog_method)
     dset_C = embed_C(dset_C)
     dset_SR = embed_SR(dset_SR)
 

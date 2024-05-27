@@ -28,29 +28,42 @@ def get_rotation_matrix(theta: np.ndarray, n_1: np.ndarray, n_2: np.ndarray) -> 
 
 
 # used in linear embedding
-def rotate_random(data: np.ndarray):
+def rotate_random(data: np.ndarray, orthog_method='GS'):
     """
     This method takes a matrix with data as input and returns it rotated of a random angle
     along a random hyperplane (the hyperplane is chosen as the span of a random vector and
-    a vector orthonormal to the first one, built by taking a vector with all zeros but two
-    elements flipped from the first one (one changed of sign))
-    data should be passed in the form of a matrix with rows representing datapoints and
-    columns representing features
+    a vector orthonormal to the first one).
+    Data are expected to be in the form of a matrix with rows representing datapoints and
+    columns representing features.
+    'orthog_method' is the orthoginalization method; can be:
+    1. "GS": Gram-Schmidt (default),
+    2. "flip": second vector built with all components equal to zero but two, which are
+    flipped from the first vector and one of them changed of sign.
     """
 
     dim = data.shape[1]
 
-    # extract random angle and hyperplane
+    # extract random angle
     angle = np.random.uniform(0, 2*np.pi, 1)
-    vector1 = np.random.uniform(-1, 1, dim)  # first vector spanning hyperplane
-    vector2 = np.zeros_like(vector1)  # init second vector spanning hyperplane
-    flip_indexes = random.sample(range(dim), 2)  # choose values to flip
-    vector2[flip_indexes[0]] = -vector1[flip_indexes[1]]  # flip first value (changing sign)
-    vector2[flip_indexes[1]] = vector1[flip_indexes[0]]  # flip second value
-    vector1 /= np.linalg.norm(vector1)  # normalize
-    vector2 /= np.linalg.norm(vector2)  # normalize
 
-    # compute rotation matrix
+    # extract random hyperplane ("flip elements" or Gram-Schmidt approach)
+    if orthog_method == "GS":
+        vector1 = np.random.randn(dim)  # first vector spanning hyperplane
+        vector2 = np.random.randn(dim)  # second vector spanning hyperplane
+        vector1 /= np.linalg.norm(vector1)
+        vector2 -= vector1 * np.dot(vector1, vector2) / np.dot(vector1, vector1)
+        vector2 /= np.linalg.norm(vector2)
+    elif orthog_method == "flip":
+        vector1 = np.random.randn(dim)  # first vector spanning hyperplane
+        vector2 = np.zeros_like(vector1)  # init second vector spanning hyperplane
+        flip_indexes = random.sample(range(dim), 2)  # choose values to flip
+        vector2[flip_indexes[0]] = -vector1[flip_indexes[1]]  # flip first value (changing sign)
+        vector2[flip_indexes[1]] = vector1[flip_indexes[0]]  # flip second value
+        vector1 /= np.linalg.norm(vector1)  # normalize
+        vector2 /= np.linalg.norm(vector2)  # normalize
+    else:
+        raise ValueError("Orthogonalization method not valid: choose among 'GS' and 'flip'")
+
     rotation_mat = get_rotation_matrix(angle, vector1, vector2)
 
     return np.dot(data, rotation_mat.T)
@@ -60,9 +73,9 @@ def rotate_random(data: np.ndarray):
 def increase_dimension(data: np.ndarray, target_dimension: int):
     """
     This method simply adds zeros to data to match target
-    dimension (i.e. maps data to higher space)
-    data are expected to be in the form of a matrix in which
-    each row is a datapoint and each column a feature
+    dimension (i.e. maps data to higher space).
+    Data are expected to be in the form of a matrix in which
+    each row is a datapoint and each column a feature.
     """
 
     if target_dimension < data.shape[1]:
@@ -74,13 +87,13 @@ def increase_dimension(data: np.ndarray, target_dimension: int):
 
 
 # linear embedding
-def embed_linear(data: np.ndarray, embedding_dim: int):
+def embed_linear(data: np.ndarray, embedding_dim: int, orthog_method: str):
 
     # map data to higher-dimensnional space
     data_embedded = increase_dimension(data, embedding_dim)
 
     # rotate data
-    data_embedded = rotate_random(data_embedded)
+    data_embedded = rotate_random(data_embedded, orthog_method)
 
     # remove residual values from rotation
     data_embedded[data_embedded < 1e-8] = 0.0
