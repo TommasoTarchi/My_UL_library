@@ -18,6 +18,7 @@ if __name__ == "__main__":
     # fit model for all datasets
     results = {}
     for data, name in zip(datasets, data_names):
+        print(f"fitting model on dataset {name}...")
         estimator = FCI_estimator()
         estimator.fit(data, r)
         results[name] = estimator.return_estimate()

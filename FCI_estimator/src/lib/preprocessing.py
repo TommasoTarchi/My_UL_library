@@ -21,6 +21,4 @@ def preprocess(data: np.ndarray):
     norms[norms == 0.0] = 1.0  # possible null datapoint
     data_normalized = data_centered / norms.reshape(-1, 1)
 
-    print(data_normalized[:3, :])
-
     return data_normalized

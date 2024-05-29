@@ -14,13 +14,12 @@ def approximate_angle_ratio(dim: float):
     As all approximations, only works for large angles (above ~300).
     """
 
-    if dim < 320:
+    if dim < 339:
         print("Warning: using Stirling approximation for angle ratio, but dimension small enough to use exact computation of angles")
 
-    #ratio = (dim - 2.) ** (0.5*dim - 0.5) / (dim - 3.) ** (0.5*dim - 1.)
-    angle_ratio = np.sqrt(dim) / np.sqrt(2. * np.pi * np.exp(1.))
-
-    print(f"angle_ratio: {angle_ratio}")
+    ratio = np.exp((0.5*dim - 0.5) * np.log(dim - 2.) - (0.5*dim - 1.) * np.log(dim - 3.))
+    angle_ratio = 0.5 * ratio / np.sqrt(2. * np.pi * np.exp(1.))
+    #angle_ratio = 0.5 * np.sqrt(dim) / np.sqrt(2. * np.pi * np.exp(1.))
 
     return angle_ratio
 
@@ -61,7 +60,7 @@ def estimate_FCI(r: np.ndarray, d: float):
     # precompute ratio between solid angles (for dimensions larger
     # than 320 an approximation based on Stirling formula is used
     # for numerical stability (gamma function would give result 0.0))
-    if d < 320:
+    if d < 339:
         solid = 2. * pi**(0.5 * d) / gamma(0.5 * d)  # solid d-dimensional angle
         solid_1 = 2. * pi**(0.5 * (d-1)) / gamma(0.5 * (d-1))  # solid (d-1)-dimensional angle
         angle_ratio = 0.5 * solid_1 / solid
@@ -69,6 +68,7 @@ def estimate_FCI(r: np.ndarray, d: float):
         angle_ratio = approximate_angle_ratio(d)
 
     print(f"d: {d}")
+    print(f"angle_ratio: {angle_ratio}")
 
     # precompute and normalize last arg (cannot be larger than 1)
     last_arg = (r**2 - 2) ** 2
@@ -76,20 +76,22 @@ def estimate_FCI(r: np.ndarray, d: float):
 
     # compute (2,1)-hypergeometric function
     #
-    # (commented lines use mpmath hypergeometric method,
-    # which is more stable (but not vectorizable); also
-    # does not require normalization of last argument)
+    # (for d > 340 we use mpmath method for hypergeometric,
+    # since scipy does not work anymore; notice that mpmath
+    # method is not vectorizable and requires typecasting)
     with np.errstate(divide='ignore', invalid='ignore'):
-        hypergeom = hyp2f1(0.5, 1. - 0.5 * d, 1.5, last_arg)
-        #hypergeom = np.empty_like(last_arg, dtype=np.float64)
-        #for i in range(hypergeom.shape[0]):
-        #    hypergeom[i] = float(abs(mpmath.hyp2f1(0.5, 1. - 0.5*d, 1.5, last_arg[i])))
-        edge_cases_count = np.sum(np.isnan(hypergeom) | np.isinf(hypergeom))
-        hypergeom[np.isnan(hypergeom) | np.isinf(hypergeom)] = 0.  # handle edge cases
+        if d < 340:
+            hypergeom = hyp2f1(0.5, 1. - 0.5 * d, 1.5, last_arg)
+        else:
+            hypergeom = np.empty_like(last_arg, dtype=np.float64)
+            for i in range(hypergeom.shape[0]):
+                hypergeom[i] = float(abs(mpmath.hyp2f1(0.5, 1. - 0.5*d, 1.5, last_arg[i])))
+        #edge_cases_count = np.sum(np.isnan(hypergeom) | np.isinf(hypergeom))
+        #hypergeom[np.isnan(hypergeom) | np.isinf(hypergeom)] = 0.  # handle edge cases
 
-    print(f"fractioin of edge cases: {edge_cases_count / hypergeom.shape[0]}")
+    #print(f"fractioin of edge cases: {edge_cases_count / hypergeom.shape[0]}")
     #print(f"last_arg: {last_arg}")
     #print(f"hypergeom: {hypergeom}")
-    print(f"angle_ratio: {angle_ratio}")
+    #print(f"angle_ratio: {angle_ratio}")
 
     return 0.5 + angle_ratio * (r**2 - 2) * hypergeom
