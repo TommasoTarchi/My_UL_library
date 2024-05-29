@@ -1,7 +1,7 @@
 import numpy as np
 import json
 
-from lib.models import FCI_estimator
+from lib.models import GlobalFCIEstimator
 
 
 if __name__ == "__main__":
@@ -10,7 +10,7 @@ if __name__ == "__main__":
     r = np.linspace(0.8, 2., 50)
 
     # read and preprocess datasets
-    data_names = ['D', 'G', 'H', 'C']#, 'SR', 'B']
+    data_names = ['D', 'G', 'H']
     datasets = []
     for name in data_names:
         datasets.append(np.load('../datasets/' + name + '.npy'))
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     results = {}
     for data, name in zip(datasets, data_names):
         print(f"fitting model on dataset {name}...")
-        estimator = FCI_estimator()
+        estimator = GlobalFCIEstimator()
         estimator.fit(data, r)
         results[name] = estimator.return_estimate()
 
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         }
         for dataset, values in results.items()
     }
-    with open("../results/results.json", 'w') as file:
+    with open("../results/sample_results.json", 'w') as file:
         json.dump(results_for_json, file, indent=4)
 
     print(results_for_json)

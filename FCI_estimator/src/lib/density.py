@@ -19,7 +19,6 @@ def approximate_angle_ratio(dim: float):
 
     ratio = np.exp((0.5*dim - 0.5) * np.log(dim - 2.) - (0.5*dim - 1.) * np.log(dim - 3.))
     angle_ratio = 0.5 * ratio / np.sqrt(2. * np.pi * np.exp(1.))
-    #angle_ratio = 0.5 * np.sqrt(dim) / np.sqrt(2. * np.pi * np.exp(1.))
 
     return angle_ratio
 
@@ -67,9 +66,6 @@ def estimate_FCI(r: np.ndarray, d: float):
     else:
         angle_ratio = approximate_angle_ratio(d)
 
-    print(f"d: {d}")
-    print(f"angle_ratio: {angle_ratio}")
-
     # precompute and normalize last arg (cannot be larger than 1)
     last_arg = (r**2 - 2) ** 2
     last_arg /= np.max(last_arg)
@@ -88,10 +84,5 @@ def estimate_FCI(r: np.ndarray, d: float):
                 hypergeom[i] = float(abs(mpmath.hyp2f1(0.5, 1. - 0.5*d, 1.5, last_arg[i])))
         #edge_cases_count = np.sum(np.isnan(hypergeom) | np.isinf(hypergeom))
         #hypergeom[np.isnan(hypergeom) | np.isinf(hypergeom)] = 0.  # handle edge cases
-
-    #print(f"fractioin of edge cases: {edge_cases_count / hypergeom.shape[0]}")
-    #print(f"last_arg: {last_arg}")
-    #print(f"hypergeom: {hypergeom}")
-    #print(f"angle_ratio: {angle_ratio}")
 
     return 0.5 + angle_ratio * (r**2 - 2) * hypergeom

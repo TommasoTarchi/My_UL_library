@@ -7,9 +7,13 @@
 # papers
 **/*.pdf
 
-# datasets
+# datasets for FCI estimator
 FCI_estimator/datasets/*
 !FCI_estimator/datasets/sample_dataset.npy
+
+# results of FCI estimator
+FCI_estimator/results/*.json
+FCI_estimator/results/sample_results.json
 
 # personal notes
 notes.md
