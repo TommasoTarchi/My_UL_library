@@ -13,7 +13,7 @@ FCI_estimator/datasets/*
 
 # results of FCI estimator
 FCI_estimator/results/*.json
-FCI_estimator/results/sample_results.json
+!FCI_estimator/results/sample_results.json
 
 # personal notes
 notes.md

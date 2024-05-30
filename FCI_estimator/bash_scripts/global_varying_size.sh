@@ -1,14 +1,15 @@
 #!/bin/bash
 
-echo "Building datasets..."
+
+echo "Running global estimator on datasets D, G and H, for varying dataset size..."
 
 cd ../src/
-python3 make_dataset.py  # PARAMETERS
 
-echo "Running estimator..."
+for ((size = 50; size <= 1000; size += 50))
+do
+    py make_dataset.py -N $size -D 1000 -d 400
 
-###
+    py fit.py --mode "g" --results_path "../results/global_varying_size/${size}.json"
+done
 
-echo "Cleaning up..."
-
-###
+cd ../bash_scripts/

@@ -10,17 +10,17 @@ if __name__ == "__main__":
     # get command line arguments
     parser = argparse.ArgumentParser(description="This program runs global or multiscale FCI estimation of intrinsic dimension")
     parser.add_argument('--mode', type=str, default='g', choices=('g', 'm'), help='Whether to perform global ("g") or multiscale ("m") FCI estimation')
-    parser.add_argument('--datapath', type=str, help='Complete path to datafile (name of the JSON file with extention included)')
+    parser.add_argument('--results_path', type=str, help='Complete path to datafile (name of the JSON file with extention included)')
 
     args = parser.parse_args()
 
     mode = args.mode  # whether to perform global or multiscale FCI estimation
-    datapath = args.datapath  # path to datafile
+    results_path = args.results_path  # path to datafile
 
     # check validity of datafile
-    if not datapath:
+    if not results_path:
         raise ValueError("A path to JSON file to store results must be passed")
-    if datapath[-5:] != '.json':
+    if results_path[-5:] != '.json':
         raise ValueError("Datafile must be a valid JSON file")
 
     # radii used in the algorithm
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     if mode == 'g':
         data_names = ['D', 'G', 'H']
     elif mode == 'm':
-        data_names = ['B']
+        data_names = ['C']
     datasets = []
     for name in data_names:
         datasets.append(np.load('../datasets/' + name + '.npy'))
@@ -54,5 +54,5 @@ if __name__ == "__main__":
         }
         for dataset, values in results.items()
     }
-    with open(datapath, 'w') as file:
+    with open(results_path, 'w') as file:
         json.dump(results_for_json, file, indent=4)

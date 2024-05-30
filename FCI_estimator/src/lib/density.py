@@ -76,7 +76,7 @@ def estimate_FCI(r: np.ndarray, d: float):
     # since scipy does not work anymore; notice that mpmath
     # method is not vectorizable and requires typecasting)
     with np.errstate(divide='ignore', invalid='ignore'):
-        if d < 340:
+        if d < 339:
             hypergeom = hyp2f1(0.5, 1. - 0.5 * d, 1.5, last_arg)
         else:
             hypergeom = np.empty_like(last_arg, dtype=np.float64)
