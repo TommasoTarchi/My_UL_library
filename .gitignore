@@ -11,9 +11,10 @@
 FCI_estimator/datasets/*
 !FCI_estimator/datasets/sample_dataset.npy
 
-# results of FCI estimator
-FCI_estimator/results/*.json
+# results of FCI estimator (and plots)
+FCI_estimator/results/**/*.json
 !FCI_estimator/results/sample_results.json
+FCI_estimator/results/**/*.png
 
 # personal notes
 notes.md
