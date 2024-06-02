@@ -2,14 +2,16 @@
 
 
 echo "Running global estimator on datasets D, G and H, for varying dataset size..."
+echo "-- intrinsic dimension is set to 400 for all datasets"
+echo "-- embedding dimension is set to 1000 for all datasets"
 
 cd ../src/
 
 for ((size = 50; size <= 1000; size += 50))
 do
-    py make_dataset.py -N $size -D 1000 -d 400
+    python3 make_datasets.py -N $size -D 1000 -d 400
 
-    py fit.py --mode "g" --results_path "../results/global_varying_size/${size}.json"
+    python3 fit.py --mode "g" --results_path "../results/global_varying_size/${size}.json"
 done
 
 cd ../bash_scripts/

@@ -30,7 +30,7 @@ if __name__ == "__main__":
     if mode == 'g':
         data_names = ['D', 'G', 'H']
     elif mode == 'm':
-        data_names = ['C']
+        data_names = ['C', 'B']
     datasets = []
     for name in data_names:
         datasets.append(np.load('../datasets/' + name + '.npy'))
