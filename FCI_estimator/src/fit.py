@@ -10,12 +10,12 @@ if __name__ == "__main__":
     # get command line arguments
     parser = argparse.ArgumentParser(description="This program runs global or multiscale FCI estimation of intrinsic dimension")
     parser.add_argument('--mode', type=str, default='g', choices=('g', 'm'), help='Whether to perform global ("g") or multiscale ("m") FCI estimation')
-    parser.add_argument('--results_path', type=str, help='Complete path to datafile (name of the JSON file with extention included)')
+    parser.add_argument('--results_path', type=str, help='Complete path to file to store results (name of the JSON file with extention included)')
 
     args = parser.parse_args()
 
     mode = args.mode  # whether to perform global or multiscale FCI estimation
-    results_path = args.results_path  # path to datafile
+    results_path = args.results_path  # path to file to store results
 
     # check validity of datafile
     if not results_path:
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # radii used in the algorithm
     r = np.linspace(0.8, 2., 50)
 
-    # read and preprocess datasets
+    # read datasets
     if mode == 'g':
         data_names = ['D', 'G', 'H']
     elif mode == 'm':
