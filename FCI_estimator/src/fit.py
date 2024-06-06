@@ -38,10 +38,11 @@ if __name__ == "__main__":
     # fit model for all datasets
     results = {}
     for data, name in zip(datasets, data_names):
-        print(f"fitting model on dataset {name}...")
         if mode == 'g':
+            print(f"fitting global estimator on dataset {name}...")
             estimator = GlobalFCIEstimator()
         elif mode == 'm':
+            print(f"fitting multiscale estimator on dataset {name}...")
             estimator = MultiscaleFCIEstimator()
         estimator.fit(data, r)
         results[name] = estimator.return_estimate()

@@ -1,14 +1,15 @@
 import argparse
 import numpy as np
 import json
+from dadapy.data import Data
 
-from lib.models import GlobalFCIEstimator, TwoNN
+from lib.models import GlobalFCIEstimator
 
 
 if __name__ == "__main__":
 
     # get command line arguments
-    parser = argparse.ArgumentParser(description="This program runs comparison between towNN and FCI estimators on dataset D")
+    parser = argparse.ArgumentParser(description="This program runs comparison between towNN (dadapy implementation) and FCI estimators on dataset G")
     parser.add_argument('--results_path', type=str, help='Complete path to file to store results (name of the JSON file with extention included)')
 
     args = parser.parse_args()
@@ -25,7 +26,7 @@ if __name__ == "__main__":
     r = np.linspace(0.8, 2., 50)
 
     # read dataset
-    data = np.load('../datasets/D.npy')
+    data = np.load('../datasets/G.npy')
 
     results = {}
 
@@ -37,9 +38,8 @@ if __name__ == "__main__":
 
     # fit twoNN estimator
     print(f"fitting towNN estimator...")
-    TwoNN_estimator = TwoNN()
-    TwoNN_estimator.fit(data)
-    results['TwoNN'] = TwoNN_estimator.return_estimate()
+    data_for_twoNN = Data(data)
+    results['TwoNN'] = data_for_twoNN.compute_id_2NN()
 
     # save results to json
     results_for_json = {

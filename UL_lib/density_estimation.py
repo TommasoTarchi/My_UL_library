@@ -3,7 +3,7 @@ import pandas as pd
 
 
 # histogram estimator using Freedman-Diaconis rule
-class MyHistEstimator:
+class HistEstimator:
 
     def __init__(self):
         self.h = None
@@ -65,7 +65,7 @@ class MyHistEstimator:
 
 
 # kernel density estimator using Gaussian kernel
-class MyGaussKDEstimator:
+class GaussKDEstimator:
 
     def __init__(self):
         self.X = None

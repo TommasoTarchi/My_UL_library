@@ -39,10 +39,11 @@ plt.figure(figsize=(10, 6))
 plt.errorbar(ids, data['D']['optimal'], yerr=data['D']['std_dev'], fmt='o', label='Dataset D', capsize=5)
 plt.errorbar(ids, data['G']['optimal'], yerr=data['G']['std_dev'], fmt='s', label='Dataset G', capsize=5)
 plt.errorbar(ids, data['H']['optimal'], yerr=data['H']['std_dev'], fmt='^', label='Dataset H', capsize=5)
-plt.axhline(y=400, color='red', linestyle='--', linewidth=1, label=f'True ID')
+
+plt.axhline(y=400, color='red', linestyle='--', linewidth=1, label='True ID')
 
 plt.xlabel('Dataset size')
 plt.ylabel('Estimated ID')
 plt.legend()
 plt.grid(True)
-plt.savefig('prova.png')
+plt.savefig('all_sizes.png')

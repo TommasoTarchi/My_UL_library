@@ -123,38 +123,3 @@ class MultiscaleFCIEstimator:
         # return optimal value (adjusted for loss of degree of freedom)
         # with standard deviation
         return self.d[index_opt]+1, self.d_std[index_opt]
-
-
-class TwoNN:
-    """
-    (Max-likelihood) twoNN estimator for intrinsic dimension.
-    (Here used only as a term of comparison for the FCI estimator).
-    """
-
-    def __init__(self):
-        self.d = None
-        self.r = None
-
-    def fit(self, data):
-        N = data.shape[0]
-
-        # compute nearest neighbors
-        ngbrs = NearestNeighbors(n_neighbors=4, algorithm='auto')
-        ngbrs.fit(data)
-
-        # compute distance ratios
-        ngbrs_distances, _ = ngbrs.kneighbors(data)
-        indexes = list(range(N))
-        for i in range(N):
-            if ngbrs_distances[i, 1] == 0:
-                indexes.remove(i)
-        mu = ngbrs_distances[indexes, 2] / ngbrs_distances[indexes, 1]
-
-        # estimate d (through max-likelihood)
-        self.d = mu.shape[0] / np.sum(np.log(mu))
-
-        # average distance from nearest neighbor
-        self.r = np.mean(ngbrs_distances[indexes, 1])
-
-    def return_estimate(self):
-        return self.d, self.r

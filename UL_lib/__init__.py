@@ -1,4 +1,4 @@
-from .clustering import MyKMeans, MyFuzzyCMeans, MySpectralClustering, MyDensPeakClustering
-from .density_estimation import MyHistEstimator, MyGaussKDEstimator
-from .dimensionality_reduction import MyPCA, MyIsomap, MyKernelPCA, MyTwoNN
-from .metrics import MyMI, MyNMI, MyFRatio
+from .clustering import KMeans, FuzzyCMeans, SpectralClustering, DensPeakClustering
+from .density_estimation import HistEstimator, GaussKDEstimator
+from .dimensionality_reduction import PCA, Isomap, KernelPCA, TwoNN
+from .metrics import compute_MI, compute_NMI, compute_FRatio

@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 
 # k-means clustering (with medoids and k-means++ initialization options)
-class MyKMeans:
+class KMeans:
 
     def __init__(self, n_clusters=8, init='random', n_init=1, max_iter=100, medoids=False):
         self.n_clusters = n_clusters
@@ -131,7 +131,7 @@ class MyKMeans:
 
 
 # fuzzy c-means clustering
-class MyFuzzyCMeans:
+class FuzzyCMeans:
 
     def __init__(self, n_clusters=8, f=2, n_init=1, max_iter=100, epsilon=1e-4):
         self.n_clusters = n_clusters
@@ -238,7 +238,7 @@ class MyFuzzyCMeans:
 
 
 # spectral clustering
-class MySpectralClustering:
+class SpectralClustering:
 
     def __init__(self, n_clusters=8, build_graph='kNN', k=5, epsilon=0.5, sigma=1, kmeans_init='random', normalize=False):
         self.n_clusters = n_clusters
@@ -319,9 +319,9 @@ class MySpectralClustering:
         # apply k-means to eigenvectors
         kmeans = None
         if self.kmeans_init == 'random':
-            kmeans = MyKMeans(n_clusters=self.n_clusters, n_init=10)
+            kmeans = KMeans(n_clusters=self.n_clusters, n_init=10)
         elif self.kmeans_init == 'k-means++':
-            kmeans = MyKMeans(n_clusters=self.n_clusters, n_init=10, init='k-means++')
+            kmeans = KMeans(n_clusters=self.n_clusters, n_init=10, init='k-means++')
         kmeans.fit(evecs)
         self.labels = kmeans.return_labels()
 
@@ -330,8 +330,8 @@ class MySpectralClustering:
 
 
 # density peaks clustering (with Gaussian distance kernel)
-class MyDensPeakClustering:
-    
+class DensPeakClustering:
+
     def __init__(self, dc):
         self.dc = dc  # parameter for distance kernel
         self.X = None  # data
@@ -339,7 +339,7 @@ class MyDensPeakClustering:
         self.sorted_rho = None
         self.sorted_delta = None
         self.delta_indexes = None  # indexes of nearest neighbors of higher density
-    
+
     def fit(self, data):
         self.X = None
         if isinstance(data, pd.DataFrame):

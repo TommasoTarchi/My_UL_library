@@ -5,7 +5,7 @@ from sklearn.neighbors import NearestNeighbors
 
 
 # PCA
-class MyPCA:
+class PCA:
 
     def __init__(self):
         self.eval = None
@@ -70,7 +70,7 @@ class MyPCA:
 #
 # we use kNNs to construct the grah, euclidean distance as metric,
 # and Floyd-Warshall algorithm to compute distances on manifold
-class MyIsomap:
+class Isomap:
 
     def __init__(self, n_components=2, k=5):
         self.n_components = n_components
@@ -179,7 +179,7 @@ class MyIsomap:
 
 
 # kernel-PCA
-class MyKernelPCA:
+class KernelPCA:
 
     def __init__(self, n_components='all', kernel='linear', gamma=1, degree=3, coef0=0):
         self.n_components = n_components
@@ -240,7 +240,7 @@ class MyKernelPCA:
 
 
 # two-NN estimator for intrinsic dimensionality
-class MyTwoNN:
+class TwoNN:
 
     def __init__(self):
         self.d = None

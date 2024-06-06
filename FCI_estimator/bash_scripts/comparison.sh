@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo "Running FCI and TwoNN estimators on datasetD, for varying intrinsic dimension..."
+echo "Running FCI and TwoNN estimators on dataset G, for varying intrinsic dimension..."
 echo "-- dataset size is set to 700 for all datasets"
 echo "-- embedding dimension is set to 1024 for all datasets"
 

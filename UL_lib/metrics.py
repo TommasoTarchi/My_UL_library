@@ -5,7 +5,7 @@ import pandas as pd
 # function to compute mutual information between two CATEGORICAL variables
 #
 # takes to numpy arrays of integers as input
-def MyMI(x, y):
+def compute_MI(x, y):
     N = x.shape[0]
 
     # compute empirical distributions
@@ -32,11 +32,11 @@ def MyMI(x, y):
 #
 # takes to numpy arrays of integers as input representing the two
 # sets (GT and computed by clustering) of labels
-def MyNMI(gt, labels):
+def compute_NMI(gt, labels):
     N = gt.shape[0]
 
     # compute mutual information
-    mi = MyMI(gt, labels)
+    mi = compute_MI(gt, labels)
 
     # compute empirical distributions
     p_gt = np.bincount(gt) / N
@@ -62,7 +62,7 @@ def MyNMI(gt, labels):
 #
 # takes as input a numpy matrix (or a pandas dataframe) representing
 # the datapoints and an array of integers representing the labels
-def MyFRatio(data, labels):
+def compute_FRatio(data, labels):
     X = None
     if isinstance(data, pd.DataFrame):
         X = data.values
