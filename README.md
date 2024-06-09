@@ -29,21 +29,21 @@ This directory contains the following modules:
   - `FuzzyCMeans`: fuzzy c-means
   - `SpectralClustering`: spectral clustering
   - `DensPeakClustering`: density peak clustering
-- `density_estimation.py`: 
+- `density_estimation.py`, implementing:
   - `HistEstimator`: histogram density estimator
   - `GaussKDEstimator`: kernel density estimator with Gaussian kernel
-- `dimensionality_reduction.py`: 
+- `dimensionality_reduction.py`, implementing:
   - `PCA`: principal component analysis
   - `Isomap`: isomap (**Notice**: this method still has to be revised,
     we do not guarantee it to work properly)
   - `KernelPCA`: kernel principal component analysis
   - `TwoNN`: two NN
-- `metrics.py`: 
+- `metrics.py`, implementing:
   - `compute_MI`: mutual information calculator
   - `compute_NMI`: normalized mutual information calculator
   - `compute_FRatio`: F-ratio score calculator
 
-To use the methods you can just douwnload [this directory](UL_lib) in your working
+To use these methods you can just download [this directory](UL_lib) in your working
 directory and import the desired classes/functions adding to your script the line:
 
 ````
@@ -72,11 +72,14 @@ To reproduce the tests it is sufficient to navigate to the `FCI_estimator/bash_s
 directory and run the bash scripts. Parameters in the scripts can be adjusted to
 investigate the desired parameter configurations.
 
+For details about implementation and testing of the algorithm (in particular for numerical
+"subtleties" in implementation) see [this presentation](FCI_estimator/FCI_estimator-Presentation.pdf).
+
 
 ## References
 
 The intrinsic dimension estimator for undersampled data implemented and tested in
-[`FCI_estimator/`](FCI_estimator), was taken from the paper:
+`FCI_estimator/`, was taken from the paper:
 
 Erba V., Gherardi M., Rotondo P. "Intrinsic dimension estimation for locally
 unsersampled data". 2019. Nature/scientific reports. [link to paper][link1].
