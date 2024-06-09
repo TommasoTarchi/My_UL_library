@@ -6,8 +6,25 @@ from sklearn.neighbors import NearestNeighbors
 from matplotlib import pyplot as plt
 
 
-# k-means clustering (with medoids and k-means++ initialization options)
 class KMeans:
+    """
+    This is an implementation of the k-means clustering algorithm.
+    Initialization of the clusters can be performed using both "random"
+    and "k-means++" procedures.
+    "Medoids" can be used as well.
+
+    Inputs:
+    - n_clusters = number of clusters
+    - init = cluster initiaization method ("random" or "k-means++")
+    - n_init = number of times the clustering is run
+    - max_iter = maximum number of iterations per run
+    - medoids = whether to use or not "K-medoids"
+
+    Methods can be used to return:
+    - labels assigned to train data (return_labels)
+    - loss of best clustering (return_loss)
+    - labels assigned to new data (predict)
+    """
 
     def __init__(self, n_clusters=8, init='random', n_init=1, max_iter=100, medoids=False):
         self.n_clusters = n_clusters
@@ -112,6 +129,10 @@ class KMeans:
         return self.min_loss
 
     def predict(self, data):
+        """
+        This method can be used to assign new datapoint to computed
+        clusters.
+        """
         X = None
         if isinstance(data, pd.DataFrame):
             X = data.values
@@ -130,8 +151,22 @@ class KMeans:
         return np.argmin(distances, axis=1)
 
 
-# fuzzy c-means clustering
 class FuzzyCMeans:
+    """
+    This is an implementation of the fuzzy c-means clustering algorithm.
+
+    Inputs:
+    - n_clusters = number of clusters
+    - f = fuzzification parameter
+    - n_init = number of times the clustering is run
+    - max_iter = maximum number of iterations per run
+    - epsilon = threshold parameter for convergence
+
+    Methods can be used to return:
+    - memebership matrix for train data (return_U)
+    - loss of best clustering (return_loss)
+    - membership matrix for new data (predict)
+    """
 
     def __init__(self, n_clusters=8, f=2, n_init=1, max_iter=100, epsilon=1e-4):
         self.n_clusters = n_clusters
@@ -211,6 +246,10 @@ class FuzzyCMeans:
         return self.min_loss
 
     def predict(self, data):
+        """
+        This method can be used to assign new datapoint to computed
+        clusters.
+        """
         X = None
         if isinstance(data, pd.DataFrame):
             X = data.values
@@ -237,8 +276,22 @@ class FuzzyCMeans:
         return U
 
 
-# spectral clustering
 class SpectralClustering:
+    """
+    This is an implementation of the spectral clustering algorithm.
+    The graph for performing clustering can be built using k-nearest neighbors,
+    epsilon-ball or as simple fully-connected graph.
+    k-means algorithm can be initialized at random or using k-means++.
+
+    Inputs:
+    - n_clusters = number of clusters
+    - build_graph = method to build the graph (kNN, epsilon-ball or fully-connected graph)
+    - k = paramter for kNN graph construction
+    - epsilon = parameter for epsilon-ball graph construnction
+    - sigma = parameter for similarity graph construction
+    - kmeans_init = method fot initialization of the k-means algorithm (random or k-means++)
+    - normalize = whether to normalize or not the Laplacian matrix
+    """
 
     def __init__(self, n_clusters=8, build_graph='kNN', k=5, epsilon=0.5, sigma=1, kmeans_init='random', normalize=False):
         self.n_clusters = n_clusters
@@ -329,8 +382,18 @@ class SpectralClustering:
         return self.labels
 
 
-# density peaks clustering (with Gaussian distance kernel)
 class DensPeakClustering:
+    """
+    This is an implementation of the density peak clustering algorithm,
+    using a Gaussian distance kernel.
+
+    Inputs:
+    - dc = parameter for distance kernel
+
+    Methods can be used to return:
+    - scatterplot of rho VS delta for cluster centroids choice (scatterplot)
+    - automatically assigned labels on the base of previous scatterplot (automatic_clustering)
+    """
 
     def __init__(self, dc):
         self.dc = dc  # parameter for distance kernel
@@ -349,7 +412,7 @@ class DensPeakClustering:
         if len(self.X.shape) == 1:
             self.X = self.X.reshape(1, -1)
         N = self.X.shape[0]
-        
+
         # compute distance matrix
         D = squareform(pdist(self.X, metric='euclidean'))
 
@@ -357,10 +420,10 @@ class DensPeakClustering:
         rho = np.zeros(N)
         for i in range(N):
             rho[i] = np.sum(np.exp(-(np.delete(D[i, :], i) / self.dc)**2))
-        
+
         # sort datapoints by density
         self.sorted_indexes = np.argsort(rho)[::-1]
-        
+
         # compute distances delta
         delta = np.zeros(N)
         self.delta_indexes = np.empty(N, dtype=int)
@@ -376,31 +439,46 @@ class DensPeakClustering:
             if delta[i] > max_delta and ordered_idx != 0:
                 max_delta = delta[i]
         delta[self.sorted_indexes[0]] = 1.05 * max_delta
-        
+
         # generate arrays for scatterplot
         self.sorted_rho = rho[self.sorted_indexes]
         self.sorted_delta = delta[self.sorted_indexes]
 
-    # plot scatterplot rho vs delta
     def scatterplot(self):
+        """
+        This method can be used to return the scatterplot of rho
+        VS delta for cluster centroids choice.
+        """
         plt.figure(figsize=(8, 6))
         plt.scatter(self.sorted_rho, self.sorted_delta, s=10) 
         plt.xlabel(r"$\rho$")
         plt.ylabel(r"$\delta$")
         plt.title(f"Scatterplot of rho vs delta with dc={self.dc}")
         plt.show()
-    
+
     # select clusters automatically (threshold is a percentage
     # of the maximum value of delta)
     #
     # computes centroids and clusters input data accordingly
     def automatic_clustering(self, thres=0.25):
+        """
+        This method can be used to automatically cluster data without visual
+        inspection of the rho VS delta scatterplot.
+        Cluster centroids are chosen using a threshold on difference in delta
+        between consecutive points.
+
+        Inputs:
+        thres = threshold for centroids choice (percentage of maximum delta)
+
+        Outputs:
+        labels = labels by clustering
+        """
         # compute absolute threshold from percentage
         abs_thres = thres * np.max(self.sorted_delta)
-        
+
         # compute differences in delta
         diff = np.diff(self.sorted_delta)
-        
+
         # select centroids
         centroids = []
         centroids.append(self.sorted_indexes[0])
@@ -413,7 +491,7 @@ class DensPeakClustering:
         index_tree = []  # tree structure to store indexes of datapoints ("reverse" of delta_indexes)
         for i in range(self.X.shape[0]):
             index_tree.append(np.where(self.delta_indexes==i)[0].tolist())
-        
+
         # assign labels (using a "recursive" approach)
         labels = np.full(self.X.shape[0], -1, dtype=int)
         labels[centroids] = np.arange(centroids.shape[0])  # assign labels to centroids

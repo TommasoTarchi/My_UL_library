@@ -2,10 +2,18 @@ import numpy as np
 import pandas as pd
 
 
-# function to compute mutual information between two CATEGORICAL variables
-#
-# takes to numpy arrays of integers as input
 def compute_MI(x, y):
+    """
+    This method can be used to compute the mutual information
+    between two categorical variables.
+
+    Inputs:
+    - x = first variable (integer-valued numpy.NDarray)
+    - y = second variable (integer-valued numpy.NDarray)
+
+    Output:
+    - mi = mutual information between x and y
+    """
     N = x.shape[0]
 
     # compute empirical distributions
@@ -28,11 +36,18 @@ def compute_MI(x, y):
     return mi
 
 
-# function to compute normalized mutual information
-#
-# takes to numpy arrays of integers as input representing the two
-# sets (GT and computed by clustering) of labels
 def compute_NMI(gt, labels):
+    """
+    This method can be used to compute the normalized mutual information
+    of a clustered dataset against its ground truth.
+
+    Inputs:
+    - labels = labels assigned by clustering (integer-valued numpy.NDarray)
+    - gt = ground truth labels (integer-valued numpy.NDarray)
+
+    Output:
+    - nmi = normalized mutual information of the clustered dataset
+    """
     N = gt.shape[0]
 
     # compute mutual information
@@ -58,11 +73,17 @@ def compute_NMI(gt, labels):
     return nmi
 
 
-# function to compute F-ratio
-#
-# takes as input a numpy matrix (or a pandas dataframe) representing
-# the datapoints and an array of integers representing the labels
 def compute_FRatio(data, labels):
+    """
+    This method can be used to compute the F-ration of a clustered dataset.
+
+    Inputs:
+    - data = dataset (numpy.NDarray or pandas.DataFrame)
+    - labels = labels assigned by clustering (integer-valued numpy.NDarray)
+
+    Output:
+    - F = F-ratio of the clustered dataset
+    """
     X = None
     if isinstance(data, pd.DataFrame):
         X = data.values

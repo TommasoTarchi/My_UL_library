@@ -82,7 +82,5 @@ def estimate_FCI(r: np.ndarray, d: float):
             hypergeom = np.empty_like(last_arg, dtype=np.float64)
             for i in range(hypergeom.shape[0]):
                 hypergeom[i] = float(abs(mpmath.hyp2f1(0.5, 1. - 0.5*d, 1.5, last_arg[i])))
-        #edge_cases_count = np.sum(np.isnan(hypergeom) | np.isinf(hypergeom))
-        #hypergeom[np.isnan(hypergeom) | np.isinf(hypergeom)] = 0.  # handle edge cases
 
     return 0.5 + angle_ratio * (r**2 - 2) * hypergeom

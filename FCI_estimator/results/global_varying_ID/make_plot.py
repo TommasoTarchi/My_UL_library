@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 # Define minimum and maximum intrinsic dimension to plot
-min_file_id = 2
+min_file_id = 64
 max_file_id = 1024
 
 data = {'D': {'optimal': [], 'std_dev': []},
@@ -47,4 +47,4 @@ plt.xlabel('True ID')
 plt.ylabel('Estimated ID')
 plt.legend()
 plt.grid(True)
-plt.savefig('all_IDs.png')
+plt.savefig('large_IDs.png')

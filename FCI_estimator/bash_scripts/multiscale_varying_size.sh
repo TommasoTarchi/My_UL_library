@@ -7,7 +7,7 @@ echo "-- embedding dimension is set to 800 for both C and B"
 
 cd ../src/
 
-for ((size = 50; size <= 1000; size += 50))
+for ((size = 600; size <= 2000; size += 200))
 do
     python3 make_datasets.py -N $size -D 800 -d 400 -n 3
 

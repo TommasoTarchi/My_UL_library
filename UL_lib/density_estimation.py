@@ -2,8 +2,16 @@ import numpy as np
 import pandas as pd
 
 
-# histogram estimator using Freedman-Diaconis rule
 class HistEstimator:
+    """
+    This is an implementation of the (multidimensional) histogram
+    density estimator, using Freedman-Diaconis rule for bin width.
+
+    Methods can be used to return:
+    - pdf (return_pdf)
+    - probability to extract a given datapoint from the estimated
+      distribution (compute_proba)
+    """
 
     def __init__(self):
         self.h = None
@@ -64,8 +72,16 @@ class HistEstimator:
         return proba
 
 
-# kernel density estimator using Gaussian kernel
 class GaussKDEstimator:
+    """
+    This is an implementation of the (multidimensional) Gaussian kernel
+    density estimator, using Silverman's rule for bins computation.
+
+    Methods can be used to return:
+    - width of bins (return_h)
+    - probability to extract a given datapoint from the estimated
+      distribution (compute_proba)
+    """
 
     def __init__(self):
         self.X = None

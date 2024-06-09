@@ -4,8 +4,17 @@ from scipy.spatial.distance import minkowski
 from sklearn.neighbors import NearestNeighbors
 
 
-# PCA
 class PCA:
+    """
+    This is an implementation of principal component analysis.
+    PCs to retain can be decided a posteriori by looking at the
+    computed explained variance.
+
+    Methods can be used to return:
+    - principal components (return_PCs)
+    - explained variance of data (return_explained_var)
+    - projection of a new datapoint along PCs (project)
+    """
 
     def __init__(self):
         self.eval = None
@@ -71,6 +80,9 @@ class PCA:
 # we use kNNs to construct the grah, euclidean distance as metric,
 # and Floyd-Warshall algorithm to compute distances on manifold
 class Isomap:
+    """
+    WARNING: this method is still under revision, it is not guaranteed to work.
+    """
 
     def __init__(self, n_components=2, k=5):
         self.n_components = n_components
@@ -178,8 +190,18 @@ class Isomap:
         return self.evec @ sqrt_eval
 
 
-# kernel-PCA
 class KernelPCA:
+    """
+    This is an implementation of kernel principal component analysis.
+
+    Inputs:
+    - n_components = number of components to retain in projection
+    - kernel = kernel function (linear, polynomial or RBF)
+    - gamma = gamma parameter for polynomial kernel and RBF (used to
+              compute std. deviation)
+    - degree = degree of polynomial kernel
+    - coef0 = 0-degree parameter for polynomial kernel
+    """
 
     def __init__(self, n_components='all', kernel='linear', gamma=1, degree=3, coef0=0):
         self.n_components = n_components
@@ -192,6 +214,10 @@ class KernelPCA:
         self.evec = None
 
     def fit_project(self, data):
+        """
+        This method can be used to fit the PCA and project data into it
+        (retaining only first 'n_components' PCs)
+        """
         X = None
         if isinstance(data, pd.DataFrame):
             X = data.values
@@ -239,8 +265,11 @@ class KernelPCA:
         return self.evec @ sqrt_eval
 
 
-# two-NN estimator for intrinsic dimensionality
 class TwoNN:
+    """
+    This is an implementation of the twoNN algorithm for intrinsic
+    dimensionality estimation.
+    """
 
     def __init__(self):
         self.d = None

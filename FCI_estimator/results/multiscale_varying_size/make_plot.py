@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 
 # define minimum and maximum size to plot
-min_file_id = 50
-max_file_id = 1000
+min_file_id = 600
+max_file_id = 2000
 
 
 data = {'C': {'optimal': [], 'std_dev': []},
