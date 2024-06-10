@@ -54,12 +54,12 @@ To use these methods you can follow these simple steps:
 line of `environment.yml`, and build the conda environment using:
 
 ````
-conda env create -f environment.yml
+$ conda env create -f environment.yml
 ````
 
-3. (Optional) remove `environment.yml`, to make the library cleaner.
+3. (Optional) remove `environment.yml`, to make the library cleaner
 
-4. use the desired classes/functions by importing them into your script:
+4. use the desired classes/functions by importing them into your python script:
 
 ````
 from UL_lib.<module_name> import <function/class name>
