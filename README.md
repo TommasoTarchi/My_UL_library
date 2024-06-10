@@ -7,6 +7,9 @@ An [entire directory](FCI_estimator) is dedicated to implementation and testing 
 the algorithm described in [this paper][link1] by Vittorio Erba, Marco Gherardi and
 Pietro Rotondo.
 
+If you want to use the methods (FCI estimator excluded) you can find more instructions
+[here](#ref1).
+
 
 ## What you will find in this repository
 
@@ -15,7 +18,7 @@ This repo contains:
 - `UL_lib/`: unsupervised learning library (see [here](#ref1) for more)
 - `FCI_estimator/`: directory containing codes for FCI estimator by Erba, Gherardi
   and Rotondo (see [here](#ref2) for more)
-- `requirements.txt`: requirements file
+- `environment.yml`: requirements file for conda environment
 
 
 <a name="ref1">
@@ -43,18 +46,31 @@ This directory contains the following modules:
   - `compute_NMI`: normalized mutual information calculator
   - `compute_FRatio`: F-ratio score calculator
 
-To use these methods you can just download [this directory](UL_lib) in your working
-directory and import the desired classes/functions adding to your script the line:
+To use these methods you can follow these simple steps:
+
+1. Download [this directory](UL_lib) in your working directory
+
+2. Substitute your environment's name to `<your_env_name>` in the first
+line of `environment.yml`, and build the conda environment using:
+
+````
+conda env create -f environment.yml
+````
+
+3. (Optional) remove `environment.yml`, to make the library cleaner.
+
+4. use the desired classes/functions by importing them into your script:
 
 ````
 from UL_lib.<module_name> import <function/class name>
 ````
 
-For instance, if you want to use the k-means algorithm you can do:
+For instance, if you want to use the k-means algorithm you can use:
 
 ````
 from UL_lib.clustering import kmeans
 ````
+
 
 <a name="ref2">
 </a>
@@ -64,7 +80,7 @@ from UL_lib.clustering import kmeans
 This directory contains:
 - `bash_scripts/`: bash scripts for running tests
 - `datasets/`: datasets used to test the algorithm
-- `src/`: codes for implementation and testing of the algorithm; contains:
+- `src/`: codes for implementation and testing of the algorithm
 - `results/`: directory containing results of tests
 - `FCI_estimator-Presentation.pdf`: presentation of implementation and results
 
