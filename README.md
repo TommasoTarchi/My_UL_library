@@ -97,8 +97,10 @@ For details about implementation and testing of the algorithm (in particular for
 The intrinsic dimension estimator for undersampled data implemented and tested in
 `FCI_estimator/`, was taken from the paper:
 
-Erba V., Gherardi M., Rotondo P. "Intrinsic dimension estimation for locally
-unsersampled data". 2019. Nature/scientific reports. [link to paper][link1].
+Erba, V., Gherardi, M. & Rotondo, P. Intrinsic dimension estimation for locally undersampled
+data. Sci Rep 9, 17133 (2019). [link to paper][link1].
+
+
 
 
 
