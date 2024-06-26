@@ -50,8 +50,9 @@ if __name__ == "__main__":
     # save results to json
     results_for_json = {
         dataset: {
-            'optimal': values[0],
-            'std_dev': values[1]
+            #'optimal': values[0],
+            #'std_dev': values[1]
+            'estimates': values
         }
         for dataset, values in results.items()
     }

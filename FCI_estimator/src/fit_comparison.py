@@ -9,7 +9,7 @@ from lib.models import GlobalFCIEstimator
 if __name__ == "__main__":
 
     # get command line arguments
-    parser = argparse.ArgumentParser(description="This program runs comparison between towNN (dadapy implementation) and FCI estimators on dataset G")
+    parser = argparse.ArgumentParser(description="This program runs comparison between towNN (dadapy implementation) and FCI estimators on dataset H")
     parser.add_argument('--results_path', type=str, help='Complete path to file to store results (name of the JSON file with extention included)')
 
     args = parser.parse_args()

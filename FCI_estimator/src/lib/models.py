@@ -89,7 +89,8 @@ class MultiscaleFCIEstimator:
         center_index = random.randint(0, data.shape[0] - 1)
 
         # apply FCI estimator for required numbers of neighbors
-        for k in range(10, data.shape[0], NN_res):
+        #for k in range(10, data.shape[0], NN_res):
+        for k in range(10, min(300, data.shape[0])):
 
             # select k nearest neighbors
             nbrs = NearestNeighbors(n_neighbors=k+1, algorithm='auto').fit(data)
@@ -118,8 +119,15 @@ class MultiscaleFCIEstimator:
 
     def return_estimate(self):
         # select smaller ID as optimal
-        index_opt = np.argmin(self.d)
+        #index_opt = np.argmin(self.d)
 
         # return optimal value (adjusted for loss of degree of freedom)
         # with standard deviation
-        return self.d[index_opt]+1, self.d_std[index_opt]
+        #return self.d[index_opt]+1, self.d_std[index_opt]
+
+        # add 1 to adjust for projection
+        for d in self.d:
+            d += 1
+
+        # return estimates for all nearest neighbors values
+        return self.d

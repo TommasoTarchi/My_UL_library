@@ -140,3 +140,11 @@ def embed_SR(data: np.ndarray):
     data_embedded[:, 2] = data[:, 0] * np.sin(2*np.pi*data[:, 1])
 
     return data_embedded
+
+
+# adds Gaussian noise to dataset
+def add_gauss_noise(data: np.ndarray, std_dev: int):
+
+    noise = np.random.normal(loc=0.0, scale=std_dev, size=data.shape)
+
+    return data + noise

@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 
-from lib.embeddings import embed_linear, embed_C, embed_SR
+from lib.embeddings import embed_linear, embed_C, embed_SR, add_gauss_noise
 from lib.high_contrast import generate_images
 
 
@@ -14,6 +14,7 @@ if __name__ == "__main__":
     parser.add_argument('-D', type=int, default=60, help='Embedding dimension (must be larger than d)')
     parser.add_argument('-n', type=int, default=3, help='Number of blobs in images of high-contrast dataset')
     parser.add_argument('--orthog_method', type=str, default="GS", help='Orthogonalization method for building random rotation hyperplane (default Gram-Schmidt)')
+    parser.add_argument('--noise_std_dev', type=float, default=0.0, help='Standard deviation of Gaussian noise added to datsets D, G and H')
 
     args = parser.parse_args()
 
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     D = args.D  # dimension of the embedding space
     num_blobs = args.n  # number of blobs in high-contrast images
     orthog_method = args.orthog_method  # orthogonalization method for rotation
+    noise_std_dev = args.noise_std_dev  # whether datasets should be noisy or not
 
     if D < d:
         raise ValueError("Embedding dimension must be larger than intrinsic dimension")
@@ -47,6 +49,12 @@ if __name__ == "__main__":
     # build high-contrast images dataset
     image_size = 81  # length of images' side (fixed to same value as in the paper)
     dset_B = generate_images(N, image_size, num_blobs)
+
+    # optionally add noise
+    if noise_std_dev:
+        dset_D = add_gauss_noise(dset_D, noise_std_dev)
+        dset_G = add_gauss_noise(dset_G, noise_std_dev)
+        dset_H = add_gauss_noise(dset_H, noise_std_dev)
 
     # save datasets to binary file
     np.save('../datasets/D.npy', dset_D)

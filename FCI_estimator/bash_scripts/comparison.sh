@@ -9,7 +9,7 @@ cd ../src/
 
 for ((id = 2; id <= 1024; id *= 2))
 do
-    python3 make_datasets.py -N 700 -D 1500 -d $id
+    python3 make_datasets.py -N 700 -D 1500 -d $id --noise_std_dev 0.0
 
     python3 fit_comparison.py --results_path "../results/comparison/${id}.json"
 done
