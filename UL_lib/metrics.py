@@ -110,6 +110,6 @@ def compute_FRatio(data, labels):
         SSB += np.sum(labels==i) * np.linalg.norm(centroids[i] - X_mean) ** 2
 
     # compute F-ratio
-    F = n_clusters * SSW / SSB
+    F = SSB / SSW / n_clusters
 
     return F
