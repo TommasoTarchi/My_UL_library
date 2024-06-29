@@ -57,11 +57,13 @@ if uaing Pip.
 
     - If using conda, substitute your environment's name to `<your_env_name>` in
     the first line of `environment.yaml`, and build the conda environment using:
+
     ````
     $ conda env create -f environment.yaml
     ````
 
-    - Otherwise, if using Pip, you can just use:
+    - Otherwise, if using Pip, you can just do:
+
     ````
     $ pip install -r requirements.txt
     ````
