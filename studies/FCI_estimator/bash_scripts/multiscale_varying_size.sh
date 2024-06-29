@@ -16,10 +16,10 @@ cd ../src/
 
 
 echo "Running multiscale estimator on datasets C and B, with dataset size fixed to 2000..."
-echo "-- intrinsic dimension of C is set to 30, while that of B is set to 15 (3 blobs)"
-echo "-- embedding dimension for C is set to 60"
+echo "-- intrinsic dimension of C is set to 10, while that of B is set to 15 (3 blobs)"
+echo "-- embedding dimension for C is 20"
 
-python3 make_datasets.py -N 2000 -D 60 -d 30 -n 3
+python3 make_datasets.py -N 20000 -D 40 -d 20 -n 5
 python3 fit.py --mode "m" --results_path "../results/multiscale_varying_size/fixed_size.json"
 
 cd ../bash_scripts/

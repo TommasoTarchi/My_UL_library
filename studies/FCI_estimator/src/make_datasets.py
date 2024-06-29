@@ -23,7 +23,7 @@ if __name__ == "__main__":
     D = args.D  # dimension of the embedding space
     num_blobs = args.n  # number of blobs in high-contrast images
     orthog_method = args.orthog_method  # orthogonalization method for rotation
-    noise_std_dev = args.noise_std_dev  # whether datasets should be noisy or not
+    noise_std_dev = args.noise_std_dev  # standard deviation of Gaussian noise
 
     if D < d:
         raise ValueError("Embedding dimension must be larger than intrinsic dimension")

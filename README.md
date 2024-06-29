@@ -15,18 +15,18 @@ If you want to use the methods (FCI estimator excluded) you can find more instru
 
 This repo contains:
 - This README file
-- `UL_lib/`: unsupervised learning library (see [here](#ref1) for more)
-- `FCI_estimator/`: directory containing codes for FCI estimator by Erba, Gherardi
-  and Rotondo (see [here](#ref2) for more)
-- `environment.yml`: requirements file for conda environment
+- `UL_lib/`: unsupervised learning library (see [here](#ref1) for use)
+- `studies/FCI_estimator/`: directory containing codes for testing of FCI estimator by
+Erba, Gherardi and Rotondo (see [here](#ref2) for more)
+- `environment.yaml`: requirements file for conda environment
 
 
 <a name="ref1">
 </a>
 
-### UL\_lib
+### How to use UL\_lib
 
-This directory contains the following modules:
+The library contains the following modules:
 - `clustering.py`, implementing:
   - `kmeans`: k-means
   - `FuzzyCMeans`: fuzzy c-means
@@ -41,6 +41,7 @@ This directory contains the following modules:
     we do not guarantee it to work properly)
   - `KernelPCA`: kernel principal component analysis
   - `TwoNN`: two NN
+  - `FCI estimator`: full correlation integral-based intrinsic dimension estimator
 - `metrics.py`, implementing:
   - `compute_MI`: mutual information calculator
   - `compute_NMI`: normalized mutual information calculator
@@ -48,16 +49,17 @@ This directory contains the following modules:
 
 To use these methods you can follow these simple steps:
 
-1. Download [this directory](UL_lib) in your working directory
+1. Download the [library directory](UL_lib) and the [YAML file](environment.yaml), and
+place them in your working directory.
 
 2. Substitute your environment's name to `<your_env_name>` in the first
-line of `environment.yml`, and build the conda environment using:
+line of `environment.yaml`, and build the conda environment using:
 
 ````
-$ conda env create -f environment.yml
+$ conda env create -f environment.yaml
 ````
 
-3. (Optional) remove `environment.yml`, to make the library cleaner
+3. (Optional) remove `environment.yaml`, to make the library cleaner.
 
 4. use the desired classes/functions by importing them into your python script:
 
@@ -75,9 +77,9 @@ from UL_lib.clustering import kmeans
 <a name="ref2">
 </a>
 
-### FCI\_estimator
+### Study on FCI\_estimator
 
-This directory contains:
+`studies/FCI_estimator/` directory contains:
 - `bash_scripts/`: bash scripts for running tests
 - `datasets/`: datasets used to test the algorithm
 - `src/`: codes for implementation and testing of the algorithm
@@ -89,7 +91,7 @@ directory and run the bash scripts. Parameters in the scripts can be adjusted to
 investigate the desired parameter configurations.
 
 For details about implementation and testing of the algorithm (in particular for numerical
-"subtleties" in implementation) see [this presentation](FCI_estimator/FCI_estimator-Presentation.pdf).
+"subtleties" in implementation) see [this presentation](studies/FCI_estimator/FCI_estimator-Presentation.pdf).
 
 
 ## References

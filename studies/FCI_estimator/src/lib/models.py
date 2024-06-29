@@ -75,39 +75,41 @@ class MultiscaleFCIEstimator:
         self.d = []
         self.d_std = []
 
-    def fit(self, data: np.ndarray, r: np.ndarray, NN_res: int = 20):
+    def fit(self, data: np.ndarray, r: np.ndarray, max_k: int):
         """
         r: values of radius to be used for fitting
-        NN_res: resolution of the vector of numbers of nearest
-                neighbors
+        max_k: maximum number of nearest neighbors considered
         """
 
         # center and normalize data
         data = preprocess(data)
 
-        # select random datapoint as center
-        center_index = random.randint(0, data.shape[0] - 1)
-
         # apply FCI estimator for required numbers of neighbors
-        #for k in range(10, data.shape[0], NN_res):
-        for k in range(10, min(300, data.shape[0])):
+        for k in range(10, min(max_k, data.shape[0])):
+
+            # select random datapoint as center
+            center_index = random.randint(0, data.shape[0] - 1)
 
             # select k nearest neighbors
             nbrs = NearestNeighbors(n_neighbors=k+1, algorithm='auto').fit(data)
-            _, indices = nbrs.kneighbors(data[center_index].reshape(1, -1))
+            distances, indices = nbrs.kneighbors(data[center_index].reshape(1, -1), return_distance=True)
             indices = indices.flatten()
             data_NN = data[indices, :]
 
+            # rescale r's values for local estimation
+            max_distance = np.max(distances)
+            r_local = r / np.max(r) * max_distance
+
             # computing true density values
-            ngbrs_density = compute_empirical_FCI(data_NN, r)
+            ngbrs_density = compute_empirical_FCI(data_NN, r_local)
 
             # fit model
-            initial_guess = data_NN.shape[1] / 2.  # initial guess for free parameter
-            bounds = (0., data_NN.shape[1])  # bounds for free parameter
+            initial_guess = data.shape[1] / 2.  # initial guess for free parameter
+            bounds = (0., data.shape[1])  # bounds for free parameter
 
             params_opt, params_covariance = curve_fit(
                     estimate_FCI,
-                    r,
+                    r_local,
                     ngbrs_density,
                     p0=initial_guess,
                     bounds=bounds,
@@ -118,13 +120,6 @@ class MultiscaleFCIEstimator:
             self.d_std.append(np.sqrt(np.diag(params_covariance))[0])
 
     def return_estimate(self):
-        # select smaller ID as optimal
-        #index_opt = np.argmin(self.d)
-
-        # return optimal value (adjusted for loss of degree of freedom)
-        # with standard deviation
-        #return self.d[index_opt]+1, self.d_std[index_opt]
-
         # add 1 to adjust for projection
         for d in self.d:
             d += 1
