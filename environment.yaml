@@ -1,7 +1,10 @@
 name: <your_env_name>
 channels:
+  - bioconda
+  - r
   - defaults
   - conda-forge
+  - pytorch
 dependencies:
   - numpy=1.26.0
   - mpmath=1.3.0

@@ -17,7 +17,8 @@ This repo contains:
 - `UL_lib/`: unsupervised learning library (see [here](#ref1) for use)
 - `studies/FCI_estimator/`: directory containing codes for testing of FCI estimator by
 Erba, Gherardi and Rotondo (see [here](#ref2) for more)
-- `environment.yaml`: requirements file for conda environment
+- `environment.yaml`: YAML file for building conda environment
+- `requirements.txt`: requirements file
 
 
 <a name="ref1">
@@ -48,17 +49,22 @@ The library contains the following modules:
 
 To use these methods you can follow these simple steps:
 
-1. Download the [library directory](UL_lib) and the [YAML file](environment.yaml), and
-place them in your working directory.
+1. Download and place in your working directory the [library directory](UL_lib)
+and the [YAML file](environment.yaml) if using conda or the [requirements file](requirements.txt)
+if uaing Pip.
 
-2. Substitute your environment's name to `<your_env_name>` in the first
-line of `environment.yaml`, and build the conda environment using:
+2. Prepare the environment:
 
-````
-$ conda env create -f environment.yaml
-````
+    - If using conda, substitute your environment's name to `<your_env_name>` in
+    the first line of `environment.yaml`, and build the conda environment using:
+    ````
+    $ conda env create -f environment.yaml
+    ````
 
-3. (Optional) remove `environment.yaml`, to make the library cleaner.
+    - Otherwise, if using Pip, you can just use:
+    ````
+    $ pip install -r requirements.txt
+    ````
 
 4. use the desired classes/functions by importing them into your python script:
 
