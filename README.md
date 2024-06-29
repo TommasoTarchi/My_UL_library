@@ -3,12 +3,11 @@
 In this repository you can find my personal implementation of several unsupervised
 learning algorithms.
 
+See [here](#ref1) for library usage instructions.
+
 An [entire directory](FCI_estimator) is dedicated to implementation and testing of
 the algorithm described in [this paper][link1] by Vittorio Erba, Marco Gherardi and
 Pietro Rotondo.
-
-If you want to use the methods (FCI estimator excluded) you can find more instructions
-[here](#ref1).
 
 
 ## What you will find in this repository
