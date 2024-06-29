@@ -1,21 +1,15 @@
-# virtual env
-*_env/
-
 # pycache
 **/__pycache__/
 
 # papers
 **/*.pdf
-!FCI_estimator/FCI_estimator-Presentation.pdf
+!studies/FCI_estimator/FCI_estimator-Presentation.pdf
 
 # datasets for FCI estimator
-FCI_estimator/datasets/*
-!FCI_estimator/datasets/sample_dataset.npy
+studies/FCI_estimator/datasets/*
+!studies/FCI_estimator/datasets/sample_dataset.npy
 
 # results of FCI estimator (and plots)
-FCI_estimator/results/**/*.json
-!FCI_estimator/results/sample_results.json
-FCI_estimator/results/**/*.png
-
-# personal notes
-notes.md
+studies/FCI_estimator/results/**/*.json
+!studies/FCI_estimator/results/sample_results.json
+studies/FCI_estimator/results/**/*.png
