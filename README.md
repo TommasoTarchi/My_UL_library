@@ -40,7 +40,7 @@ The library contains the following modules:
     we do not guarantee it to work properly)
   - `KernelPCA`: kernel principal component analysis
   - `TwoNN`: two NN
-  - `FCI estimator`: full correlation integral-based intrinsic dimension estimator
+  - `FCIEstimator`: full correlation integral-based intrinsic dimension estimator
 - `metrics.py`, implementing:
   - `compute_MI`: mutual information calculator
   - `compute_NMI`: normalized mutual information calculator
