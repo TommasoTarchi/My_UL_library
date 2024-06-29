@@ -24,7 +24,7 @@ Erba, Gherardi and Rotondo (see [here](#ref2) for more)
 <a name="ref1">
 </a>
 
-### How to use UL\_lib
+## How to use UL\_lib
 
 The library contains the following modules:
 - `clustering.py`, implementing:
@@ -77,7 +77,7 @@ from UL_lib.clustering import kmeans
 <a name="ref2">
 </a>
 
-### Study on FCI\_estimator
+## Study on FCI\_estimator
 
 `studies/FCI_estimator/` directory contains:
 - `bash_scripts/`: bash scripts for running tests
