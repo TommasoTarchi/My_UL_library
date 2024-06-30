@@ -21,7 +21,7 @@ Erba, Gherardi and Rotondo (see [here](#study-on-fci-estimator) for more)
 - `requirements.txt`: requirements file
 
 
-## How to use UL\_lib
+## How to use UL lib
 
 The library contains the following modules:
 - `clustering.py`, implementing:
