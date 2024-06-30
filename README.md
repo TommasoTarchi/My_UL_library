@@ -3,7 +3,7 @@
 In this repository you can find my personal implementation of several unsupervised
 learning algorithms.
 
-See [here](#how-to-use-ul-lib) for library usage instructions.
+See [here](#how-to-use-the-library) for library usage instructions.
 
 An [entire directory](FCI_estimator) is dedicated to implementation and testing of
 the algorithm described in [this paper][link1] by Vittorio Erba, Marco Gherardi and
@@ -14,14 +14,14 @@ Pietro Rotondo.
 
 This repo contains:
 - This README file
-- `UL_lib/`: unsupervised learning library (see [here](#how-to-use-ul-lib) for use)
+- `UL_lib/`: unsupervised learning library (see [here](#how-to-use-the-library) for use)
 - `studies/FCI_estimator/`: directory containing codes for testing of FCI estimator by
 Erba, Gherardi and Rotondo (see [here](#study-on-fci-estimator) for more)
 - `environment.yaml`: YAML file for building conda environment
 - `requirements.txt`: requirements file
 
 
-## How to use UL lib
+## How to use the library
 
 The library contains the following modules:
 - `clustering.py`, implementing:
