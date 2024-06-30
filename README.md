@@ -3,7 +3,7 @@
 In this repository you can find my personal implementation of several unsupervised
 learning algorithms.
 
-See [here](#ref1) for library usage instructions.
+See [here](#how-to-use-ul-lib) for library usage instructions.
 
 An [entire directory](FCI_estimator) is dedicated to implementation and testing of
 the algorithm described in [this paper][link1] by Vittorio Erba, Marco Gherardi and
@@ -14,15 +14,12 @@ Pietro Rotondo.
 
 This repo contains:
 - This README file
-- `UL_lib/`: unsupervised learning library (see [here](#ref1) for use)
+- `UL_lib/`: unsupervised learning library (see [here](#how-to-use-ul-lib) for use)
 - `studies/FCI_estimator/`: directory containing codes for testing of FCI estimator by
-Erba, Gherardi and Rotondo (see [here](#ref2) for more)
+Erba, Gherardi and Rotondo (see [here](#study-on-fci-estimator) for more)
 - `environment.yaml`: YAML file for building conda environment
 - `requirements.txt`: requirements file
 
-
-<a name="ref1">
-</a>
 
 ## How to use UL\_lib
 
@@ -55,36 +52,29 @@ if uaing Pip.
 
 2. Prepare the environment:
 
-    - If using conda, substitute your environment's name to `<your_env_name>` in
-    the first line of `environment.yaml`, and build the conda environment using:
-
-    ````
-    $ conda env create -f environment.yaml
-    ````
+    - If using conda, substitute your environment's name to `<your_env_name>` in the first line
+      of `environment.yaml`, and build the conda environment using:
+      ````
+      $ conda env create -f environment.yaml
+      ````
 
     - Otherwise, if using Pip, you can just do:
-
-    ````
-    $ pip install -r requirements.txt
-    ````
+      ````
+      $ pip install -r requirements.txt
+      ````
 
 4. use the desired classes/functions by importing them into your python script:
-
-````
-from UL_lib.<module_name> import <function/class name>
-````
+   ````
+   from UL_lib.<module_name> import <function/class name>
+   ````
 
 For instance, if you want to use the k-means algorithm you can use:
-
 ````
 from UL_lib.clustering import kmeans
 ````
 
 
-<a name="ref2">
-</a>
-
-## Study on FCI\_estimator
+## Study on FCI estimator
 
 `studies/FCI_estimator/` directory contains:
 - `bash_scripts/`: bash scripts for running tests
