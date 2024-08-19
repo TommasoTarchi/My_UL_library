@@ -64,8 +64,7 @@ if using Pip.
       ````
 
 4. use the desired classes/functions by
-importing them into your python script:
-````
+importing them into your python script: ````
 from UL_lib.<module_name> import <function/class name>
 ````
 For instance, if you want to use the k-means algorithm you can use:
