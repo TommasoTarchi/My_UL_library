@@ -63,7 +63,8 @@ if using Pip.
       $ pip install -r requirements.txt
       ````
 
-4. use the desired classes/functions by importing them into your python script:
+4. use the desired classes/functions by
+importing them into your python script:
 ````
 from UL_lib.<module_name> import <function/class name>
 ````
