@@ -48,7 +48,7 @@ To use these methods you can follow these simple steps:
 
 1. Download and place in your working directory the [library directory](UL_lib)
 and the [YAML file](environment.yaml) if using conda or the [requirements file](requirements.txt)
-if uaing Pip.
+if using Pip.
 
 2. Prepare the environment:
 
@@ -64,10 +64,9 @@ if uaing Pip.
       ````
 
 4. use the desired classes/functions by importing them into your python script:
-   ````
-   from UL_lib.<module_name> import <function/class name>
-   ````
-
+````
+from UL_lib.<module_name> import <function/class name>
+````
 For instance, if you want to use the k-means algorithm you can use:
 ````
 from UL_lib.clustering import kmeans
