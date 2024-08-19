@@ -65,17 +65,14 @@ if using Pip.
 
 4. use the desired classes/functions by
 importing them into your python script:
-
-````
-from UL_lib.<module_name> import <function/class name>
-````
-
-For instance, if you want to use the k-means 
+    ````
+    from UL_lib.<module_name> import <function/class name>
+    ````
+    For instance, if you want to use the k-means 
 algorithm you can use:
-
-````
-from UL_lib.clustering import kmeans
-````
+    ````
+    from UL_lib.clustering import kmeans
+    ````
 
 
 ## Study on FCI estimator
