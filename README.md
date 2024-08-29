@@ -46,30 +46,31 @@ The library contains the following modules:
 
 To use these methods you can follow these simple steps:
 
-1. Download and place in your working directory the [library directory](UL_lib)
-and the [YAML file](environment.yaml) if using conda or the [requirements file](requirements.txt)
-if using Pip.
+1. Clone this repository:
+   ````
+   git@github.com:TommasoTarchi/My_UL_library.git
+   ````
 
 2. Prepare the environment:
 
-    - If using conda, substitute your environment's name to `<your_env_name>` in the first line
+    - If using conda, substitute your desired environment's name to `<your_env_name>` in the first line
       of `environment.yaml`, and build the conda environment using:
       ````
       $ conda env create -f environment.yaml
       ````
 
-    - Otherwise, if using Pip, you can just do:
+    - If using Pip, just do:
       ````
       $ pip install -r requirements.txt
       ````
 
-4. use the desired classes/functions by
-importing them into your python script:
+3. Copy the [UL_lib directory](UL_lib) in your working directory.
+
+4. use the desired classes/functions by importing them into your python script:
     ````
     from UL_lib.<module_name> import <function/class name>
     ````
-    For instance, if you want to use the k-means 
-algorithm you can use:
+    For instance, if you want to use the k-means algorithm you can use:
     ````
     from UL_lib.clustering import kmeans
     ````
